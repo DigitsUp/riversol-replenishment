@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riversol Replenishment Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EFE6;
+    --paper-2:#FBF8F1;
+    --card:#FFFFFF;
+    --ink:#1E2A23;
+    --ink-soft:#4A574E;
+    --cedar:#2F5E4D;
+    --cedar-deep:#234A3D;
+    --sage:#8FA99B;
+    --sage-pale:#DCE6DE;
+    --bark:#BC6B43;
+    --bark-soft:#E8C9B4;
+    --line:#D8D0C2;
+    --shadow:0 1px 2px rgba(30,42,35,.04), 0 8px 24px rgba(30,42,35,.06);
+    --shadow-lift:0 4px 10px rgba(30,42,35,.07), 0 18px 44px rgba(30,42,35,.10);
+    --r:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+  /* atmosphere */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(1100px 700px at 12% -8%, rgba(143,169,155,.30), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(188,107,67,.10), transparent 55%),
+      radial-gradient(1000px 800px at 80% 110%, rgba(47,94,77,.10), transparent 60%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 26px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:78px 0 30px;animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  .kicker{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cedar);background:rgba(255,255,255,.6);
+    border:1px solid var(--line);border-radius:100px;padding:7px 15px;margin-bottom:22px;
+  }
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--bark)}
+  h1{
+    font-family:'Fraunces',serif;font-weight:600;font-optical-sizing:auto;
+    font-size:clamp(40px,6.4vw,72px);line-height:1.02;letter-spacing:-.018em;color:var(--ink);
+    max-width:14ch;
+  }
+  h1 em{font-style:italic;color:var(--cedar)}
+  .lede{
+    font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:54ch;margin-top:22px;
+  }
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .chip{
+    font-size:13px;font-weight:500;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-radius:100px;padding:8px 16px;box-shadow:var(--shadow);
+  }
+  .chip b{color:var(--cedar);font-weight:700}
+
+  /* ---------- PRINCIPLE BANNER ---------- */
+  .principle{
+    margin:46px 0 14px;background:var(--cedar);color:#EEF3EE;border-radius:24px;
+    padding:38px 40px;box-shadow:var(--shadow-lift);position:relative;overflow:hidden;
+    animation:rise .8s .08s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .principle::after{
+    content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(143,169,155,.5), transparent 65%);
+  }
+  .principle .p-kick{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:12px}
+  .principle h2{
+    font-family:'Fraunces',serif;font-weight:500;font-size:clamp(22px,3vw,30px);line-height:1.22;
+    letter-spacing:-.01em;max-width:30ch;position:relative;z-index:1;
+  }
+  .principle h2 b{color:#fff;font-weight:600}
+  .principle .note{margin-top:18px;font-size:14px;color:#CFE0D5;max-width:62ch;position:relative;z-index:1}
+  .principle .note strong{color:var(--bark-soft);font-weight:600}
+
+  /* ---------- SECTION HEADS ---------- */
+  .sec-head{margin:64px 0 8px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .sec-head .num{font-family:'Fraunces',serif;font-size:15px;color:var(--bark);font-weight:600}
+  .sec-head h3{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(24px,3.4vw,34px);letter-spacing:-.01em}
+  .sec-sub{color:var(--ink-soft);font-size:15px;margin-bottom:26px;max-width:60ch}
+
+  /* ---------- JOURNEY SPINE ---------- */
+  .journey{position:relative;padding-left:0}
+  .stage{
+    position:relative;display:grid;grid-template-columns:108px 1fr;gap:0;
+    padding-bottom:26px;
+    animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .stage:nth-child(1){animation-delay:.02s}
+  .stage:nth-child(2){animation-delay:.08s}
+  .stage:nth-child(3){animation-delay:.14s}
+  .stage:nth-child(4){animation-delay:.20s}
+  .stage:nth-child(5){animation-delay:.26s}
+  .stage:nth-child(6){animation-delay:.32s}
+  .stage:nth-child(7){animation-delay:.38s}
+  /* the rail */
+  .rail{position:relative}
+  .rail::before{
+    content:"";position:absolute;left:23px;top:8px;bottom:-26px;width:2px;
+    background:linear-gradient(var(--sage),var(--sage-pale));
+  }
+  .stage:last-child .rail::before{display:none}
+  .node{
+    position:relative;z-index:2;width:48px;height:48px;border-radius:50%;
+    background:var(--card);border:2px solid var(--cedar);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    box-shadow:var(--shadow);
+  }
+  .node .d{font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:var(--cedar);line-height:1}
+  .node .dl{font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px}
+  .node.start{border-color:var(--ink);background:var(--ink)}
+  .node.start .d{color:#fff;font-size:13px}
+  .node.start .dl{color:var(--sage)}
+  .node.end{border-color:var(--bark);border-style:dashed;background:var(--bark-soft)}
+  .node.end .d{color:var(--bark)}
+  .node.sms{border-color:var(--sage)}
+  .node.sms .d{color:var(--cedar)}
+
+  /* stage content card */
+  .scard{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:22px 24px;margin-left:6px;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+    display:grid;grid-template-columns:1fr;gap:18px;
+  }
+  .scard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+  @media(min-width:760px){ .scard.has-preview{grid-template-columns:1fr 300px} }
+  .scard .tag-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}
+  .tag{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px}
+  .tag.email{background:var(--sage-pale);color:var(--cedar-deep)}
+  .tag.sms{background:#F2E3D8;color:var(--bark)}
+  .tag.all{background:#EEEAE0;color:var(--ink-soft)}
+  .scard h4{font-family:'Fraunces',serif;font-weight:600;font-size:21px;letter-spacing:-.01em;margin-bottom:6px}
+  .scard p.purpose{font-size:14.5px;color:var(--ink-soft);margin-bottom:14px}
+  .detail{font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;padding-left:18px;position:relative}
+  .detail::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--sage)}
+  .detail b{color:var(--ink);font-weight:600}
+  .subj{margin-top:12px;font-size:13px;color:var(--ink);background:var(--paper-2);border:1px dashed var(--line);border-radius:10px;padding:9px 13px}
+  .subj span{color:var(--bark);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:10.5px;display:block;margin-bottom:2px}
+
+  /* ---------- EMAIL PREVIEW MOCKUP ---------- */
+  .preview{
+    background:var(--paper-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 6px 18px rgba(30,42,35,.08);align-self:start;
+  }
+  .pv-bar{display:flex;align-items:center;gap:6px;padding:9px 13px;border-bottom:1px solid var(--line);background:#fff}
+  .pv-bar .b{width:8px;height:8px;border-radius:50%;background:var(--line)}
+  .pv-brand{margin-left:8px;font-family:'Fraunces',serif;font-weight:600;font-size:13px;color:var(--cedar);letter-spacing:.02em}
+  .pv-hero{height:78px;background:linear-gradient(135deg,var(--sage),var(--cedar));position:relative}
+  .pv-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(120px 80px at 80% 20%,rgba(255,255,255,.25),transparent)}
+  .pv-body{padding:14px 15px 17px}
+  .pv-body .h{font-family:'Fraunces',serif;font-size:16px;font-weight:600;line-height:1.2;color:var(--ink);margin-bottom:6px}
+  .pv-body .t{font-size:12px;color:var(--ink-soft);line-height:1.5}
+  .pv-body .t.quote{font-style:italic;border-left:2px solid var(--sage);padding-left:10px;margin:8px 0}
+  .pv-cta{display:inline-block;margin-top:13px;background:var(--cedar);color:#fff;font-size:12px;font-weight:600;padding:9px 16px;border-radius:100px}
+  .pv-cta.second{background:transparent;color:var(--cedar);border:1px solid var(--cedar);margin-left:7px}
+
+  /* SMS preview */
+  .sms-pv{background:transparent;border:none;box-shadow:none;padding-top:4px}
+  .sms-bubble{background:var(--cedar);color:#EEF3EE;font-size:13px;line-height:1.45;padding:13px 16px;border-radius:18px 18px 18px 5px;max-width:280px;box-shadow:var(--shadow)}
+  .sms-bubble .lk{color:var(--bark-soft);text-decoration:underline}
+  .sms-meta{font-size:11px;color:var(--ink-soft);margin-top:7px;margin-left:4px}
+
+  /* split row */
+  .split-grid{display:grid;gap:16px;margin-left:6px}
+  @media(min-width:760px){ .split-grid{grid-template-columns:1fr 1fr} }
+  .split-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:20px 22px;transition:transform .35s,box-shadow .35s}
+  .split-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+  .split-card .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px;margin-bottom:12px}
+  .split-card.member .badge{background:var(--sage-pale);color:var(--cedar-deep)}
+  .split-card.nonmember .badge{background:#F2E3D8;color:var(--bark)}
+  .split-card h5{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:10px}
+  .split-note{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+  .split-fork{display:flex;align-items:center;gap:10px;margin:0 0 14px 6px;color:var(--cedar);font-weight:600;font-size:13.5px}
+  .split-fork svg{flex:none}
+
+  /* ---------- BUILD LOGIC ---------- */
+  .grid-2{display:grid;gap:16px}
+  @media(min-width:720px){.grid-2{grid-template-columns:repeat(2,1fr)}}
+  .logic{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow)}
+  .logic h4{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-bottom:6px}
+  .logic h4 .ic{width:30px;height:30px;border-radius:9px;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;color:var(--cedar);flex:none}
+  .logic p{font-size:13.5px;color:var(--ink-soft)}
+  .logic p b{color:var(--ink);font-weight:600}
+
+  /* metrics */
+  .metrics{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .metric{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .metric .m-l{font-size:12px;color:var(--ink-soft);font-weight:500}
+  .metric .m-v{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--cedar);margin-top:3px}
+
+  /* checklist */
+  .checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:8px 24px;box-shadow:var(--shadow)}
+  .check{display:flex;align-items:flex-start;gap:13px;padding:15px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .check:last-child{border-bottom:none}
+  .check .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--sage);flex:none;margin-top:1px}
+  .check b{font-weight:600}
+
+  /* footer */
+  footer{margin:60px 0 70px;padding-top:26px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13.5px;line-height:1.6}
+  footer b{color:var(--cedar)}
+
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+  @media(max-width:560px){
+    .stage{grid-template-columns:64px 1fr}
+    .rail::before{left:23px}
+    .node{width:46px;height:46px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="kicker"><span class="dot"></span>Lifecycle &middot; Klaviyo Flow</span>
+    <h1>The Replenishment <em>Journey</em></h1>
+    <p class="lede">A clean, four-email plus SMS flow that reaches each customer right before their product runs out, so the reorder lands before they hit empty. Built for Klaviyo, designed for trust.</p>
+    <div class="meta">
+      <span class="chip"><b>4</b> Emails</span>
+      <span class="chip"><b>1</b> SMS</span>
+      <span class="chip">Trigger: <b>Placed Order</b></span>
+      <span class="chip"><b>1</b> conditional split</span>
+      <span class="chip">Timed to <b>run-out</b></span>
+    </div>
+  </header>
+
+  <!-- PRINCIPLE -->
+  <section class="principle">
+    <div class="p-kick">The principle</div>
+    <h2>Every send is <b>back-timed from the ~60-day run-out</b>, so the reorder reminder arrives just as the bottle empties, never before.</h2>
+    <p class="note">All timings below assume a 60-day run-out. <strong>One thing to confirm with the client:</strong> validate this against real reorder data. If the true window shifts, every send moves by the same amount and nothing else in the flow changes.</p>
+  </section>
+
+  <!-- JOURNEY -->
+  <div class="sec-head"><span class="num">01</span><h3>The journey, step by step</h3></div>
+  <p class="sec-sub">Emails 1 to 3 and the SMS are the same for everyone. Only the final offer email forks, based on whether the customer is already a Riversol+ member.</p>
+
+  <div class="journey">
+
+    <!-- DAY 0 -->
+    <div class="stage">
+      <div class="rail"><div class="node start"><span class="d">Day 0</span><span class="dl">Buy</span></div></div>
+      <div class="scard">
+        <div>
+          <div class="tag-row"><span class="tag all">Entry</span></div>
+          <h4>The customer places an order</h4>
+          <p class="purpose">This is the trigger. The flow begins quietly. Active Auto-Replenish subscribers are excluded, since their product already ships on its own.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 1 -->
+    <div class="stage">
+      <div class="rail"><div class="node"><span class="d">30</span><span class="dl">Day</span></div></div>
+      <div class="scard has-preview">
+        <div>
+          <div class="tag-row"><span class="tag email">Email 1</span><span class="tag all">All customers</span></div>
+          <h4>Progress check-in</h4>
+          <p class="purpose">Reassure them they are right at the point where results tend to show, and plant the idea that consistency earns the payoff. Soft, not a sell.</p>
+          <p class="detail"><b>Angle:</b> mature skin renews more slowly, so the benefit lands around the time the bottle finishes.</p>
+          <p class="detail"><b>Hero block:</b> reorder your favourites, pulling their own past products.</p>
+          <div class="subj"><span>Subject direction</span>You are right at the turning point</div>
+        </div>
+        <div class="preview">
+          <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
+          <div class="pv-hero"></div>
+          <div class="pv-body">
+            <div class="h">Your skin is just hitting its stride</div>
+            <div class="t">This is the point where staying consistent starts to show. Reviewed and approved by award-winning dermatologist Dr. Jason Rivers.</div>
+            <span class="pv-cta">Reorder my routine</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 2 -->
+    <div class="stage">
+      <div class="rail"><div class="node"><span class="d">44</span><span class="dl">Day</span></div></div>
+      <div class="scard has-preview">
+        <div>
+          <div class="tag-row"><span class="tag email">Email 2</span><span class="tag all">All customers</span></div>
+          <h4>Why the full cycle matters</h4>
+          <p class="purpose">Educational. Explain in plain language why stopping early tends to undo progress, with a light skin-cycle note.</p>
+          <p class="detail"><b>Authority:</b> anchored to Dr. Rivers and Made in Canada formulation.</p>
+          <p class="detail"><b>Reassurance:</b> 60-day money-back guarantee.</p>
+          <div class="subj"><span>Subject direction</span>Why your skin needs the full cycle</div>
+        </div>
+        <div class="preview">
+          <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
+          <div class="pv-hero"></div>
+          <div class="pv-body">
+            <div class="h">Give your skin the time it needs</div>
+            <div class="t">Mature skin renews more slowly, so finishing the routine helps the results take hold. Powered by our signature hinokitiol (Beta-T).</div>
+            <span class="pv-cta">Reorder my routine</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 3 -->
+    <div class="stage">
+      <div class="rail"><div class="node"><span class="d">51</span><span class="dl">Day</span></div></div>
+      <div class="scard has-preview">
+        <div>
+          <div class="tag-row"><span class="tag email">Email 3</span><span class="tag all">All customers</span></div>
+          <h4>Social proof on consistency</h4>
+          <p class="purpose">Show that customers who stayed the course saw the results they were hoping for.</p>
+          <p class="detail"><b>Proof:</b> first-name, age-tagged reviews that speak to sticking with it.</p>
+          <p class="detail"><b>Claims:</b> appearance-based and hedged throughout.</p>
+          <div class="subj"><span>Subject direction</span>What happens when you stick with it</div>
+        </div>
+        <div class="preview">
+          <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
+          <div class="pv-hero"></div>
+          <div class="pv-body">
+            <div class="h">The reviews that say it best</div>
+            <div class="t quote">"I almost stopped at week six. So glad I didn't." Tanya R., 52</div>
+            <span class="pv-cta">Reorder my routine</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SMS -->
+    <div class="stage">
+      <div class="rail"><div class="node sms"><span class="d">54</span><span class="dl">Day</span></div></div>
+      <div class="scard has-preview">
+        <div>
+          <div class="tag-row"><span class="tag sms">SMS</span><span class="tag all">Consented only</span></div>
+          <h4>One timely nudge</h4>
+          <p class="purpose">A single short, practical message at the run-low moment. No vague "offers waiting." Straight to reorder.</p>
+          <p class="detail"><b>Compliance:</b> respects CASL consent and quiet hours (Canada-first).</p>
+        </div>
+        <div class="preview sms-pv">
+          <div class="sms-bubble">Riversol: running low? Reorder your routine in two taps <span class="lk">rvsl.co/reorder</span>. Reply STOP to opt out.</div>
+          <div class="sms-meta">Sent ~Day 54, ahead of run-out</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 4 SPLIT -->
+    <div class="stage">
+      <div class="rail"><div class="node"><span class="d">57</span><span class="dl">Day</span></div></div>
+      <div style="margin-left:6px">
+        <div class="split-fork">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6"/><path d="M6 21V9"/><circle cx="6" cy="3" r="0"/></svg>
+          Email 4 forks here, the only split in the whole flow
+        </div>
+        <div class="split-grid">
+          <div class="split-card member">
+            <span class="badge">Riversol+ member</span>
+            <h5>Reorder with your credit</h5>
+            <p class="split-note">Use accrued store credit plus standing 10% member pricing. Not a stackable code (codes do not apply to member or subscription orders), so urgency is "your credit is ready."</p>
+            <div class="preview">
+              <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
+              <div class="pv-body">
+                <div class="h">Reorder before you run out</div>
+                <div class="t">You have store credit waiting, plus your 10% member pricing on every order.</div>
+                <span class="pv-cta">Reorder with my credit</span><span class="pv-cta second">Redeem my reward</span>
+              </div>
+            </div>
+          </div>
+          <div class="split-card nonmember">
+            <span class="badge">Non-member</span>
+            <h5>Reorder, and do it for less</h5>
+            <p class="split-note">Reorder now, with a transparent invitation to join Riversol+. State the terms plainly. Membership is framed as opt-in, never as "just a discount."</p>
+            <div class="preview">
+              <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
+              <div class="pv-body">
+                <div class="h">Reorder, and do it for less</div>
+                <div class="t">Join Riversol+ to save on every order. Pause, skip, or cancel anytime.</div>
+                <span class="pv-cta">Reorder my routine</span><span class="pv-cta second">How Riversol+ works</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUN OUT -->
+    <div class="stage">
+      <div class="rail"><div class="node end"><span class="d">~60</span><span class="dl">Out</span></div></div>
+      <div class="scard">
+        <div>
+          <div class="tag-row"><span class="tag all">Goal moment</span></div>
+          <h4>Product runs out</h4>
+          <p class="purpose">By now the reorder has ideally shipped and arrived. Anyone who reordered earlier was quietly dropped from the remaining sends, so no one gets nagged after they have already bought.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DATA CALLOUT -->
+  <div class="sec-head"><span class="num">⚑</span><h3>One flag before build</h3></div>
+  <p class="sec-sub">From real segment data — 339 customers in the Replenishment_Test segment.</p>
+  <div class="grid-2" style="margin-bottom:32px">
+    <div class="logic" style="border-left:3px solid var(--bark)">
+      <h4><span class="ic" style="background:#F2E3D8">⚠</span>The Email 4 split needs a third path</h4>
+      <p>The current flow forks members vs. non-members. But <b>23% of this segment are <em>cancelled</em> Riversol+ members</b> — they tried it and left. Sending them the "join Riversol+" pitch will feel tone-deaf. They need a re-engagement angle, not a first-time pitch. Confirm approach before copy is written.</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic">📊</span>Segment data snapshot</h4>
+      <p><b>58%</b> active Riversol+ members · <b>23%</b> cancelled · <b>13%</b> never joined · <b>6%</b> paused<br><br><b>29%</b> have unused store credit (avg $31) — strong hook for Email 4.<br><b>100%</b> SMS-consented · Median LTV <b>$2,077</b> · Median <b>25 orders</b>.<br><br>Reorder cadence validated: median <b>58 days</b>. Flow timing holds.</p>
+    </div>
+  </div>
+
+  <!-- BUILD LOGIC -->
+  <div class="sec-head"><span class="num">02</span><h3>How it works in Klaviyo</h3></div>
+  <p class="sec-sub">The complexity is deliberately low: one trigger, one split near the end, and automatic exits. Easy to build, easy to QA.</p>
+  <div class="grid-2">
+    <div class="logic">
+      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 20 9"/><polyline points="11 22 11 15 4 15"/></svg></span>Trigger</h4>
+      <p>Fires on the <b>Placed Order</b> metric, scoped to the products this flow is meant to replenish.</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Exclusions</h4>
+      <p>Active <b>Auto-Replenish</b> subscribers are filtered out. A re-entry guard stops a customer sitting in two instances at once.</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Auto-exit on reorder</h4>
+      <p>Before each send, a conditional split checks <b>"Placed Order since starting flow."</b> If they bought, they exit. Nobody gets chased after they convert.</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6"/><path d="M6 21V9"/></svg></span>The one split</h4>
+      <p>A single conditional split before Email 4 on <b>Riversol+ member status</b>. Smart Sending on, UTMs on every link, support routed to <b>live chat</b>.</p>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="sec-head"><span class="num">03</span><h3>What we will measure</h3></div>
+  <p class="sec-sub">Primary read is reorder rate and revenue per recipient. One A/B to start: send timing on the final push.</p>
+  <div class="metrics">
+    <div class="metric"><div class="m-l">Reorder rate</div><div class="m-v">Primary</div></div>
+    <div class="metric"><div class="m-l">Time to reorder</div><div class="m-v">Pacing</div></div>
+    <div class="metric"><div class="m-l">Riversol+ conversion</div><div class="m-v">Non-member path</div></div>
+    <div class="metric"><div class="m-l">Revenue / recipient</div><div class="m-v">Primary</div></div>
+    <div class="metric"><div class="m-l">Unsub &amp; spam</div><div class="m-v">Guardrail</div></div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="sec-head"><span class="num">04</span><h3>Sign-off checklist</h3></div>
+  <p class="sec-sub">Five items to confirm in the meeting, then we proceed to copy.</p>
+  <div class="checklist">
+    <div class="check"><span class="box"></span><span><b>Run-out window</b> confirmed or corrected against real reorder data.</span></div>
+    <div class="check"><span class="box"></span><span><b>Riversol+ price</b> locked (first-month and monthly figure, since the site currently shows it inconsistently).</span></div>
+    <div class="check"><span class="box"></span><span><b>Member offer</b> for Email 4 confirmed (credit plus optional gift-with-reorder).</span></div>
+    <div class="check"><span class="box"></span><span><b>Rewards points rule</b> reconciled: gift redemption, separate CTA, kept clear of discount offers.</span></div>
+    <div class="check"><span class="box"></span><span><b>Auto-Replenish exclusion</b> confirmed with the data team.</span></div>
+  </div>
+
+  <footer>
+    All copy will follow the Riversol brand voice: hedged, appearance-based claims, sensitive-skin reassurance, <b>Dr. Jason Rivers</b> as the authority anchor, Made in Canada, Canadian spelling, and live-chat support rather than reply-to. Membership is always presented as opt-in, with clear pause, skip, and cancel language.
+  </footer>
+
+</div>
+</body>
+</html>
