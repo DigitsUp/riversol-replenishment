@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riversol Replenishment Journey</title>
+<title>Riversol Replenishment Journey V2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
     --bark:#BC6B43;
     --bark-soft:#E8C9B4;
     --line:#D8D0C2;
+    --arm-b:#BC6B43;
     --shadow:0 1px 2px rgba(30,42,35,.04), 0 8px 24px rgba(30,42,35,.06);
     --shadow-lift:0 4px 10px rgba(30,42,35,.07), 0 18px 44px rgba(30,42,35,.10);
     --r:18px;
@@ -36,7 +37,6 @@
     position:relative;
     overflow-x:hidden;
   }
-  /* atmosphere */
   body::before{
     content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
     background:
@@ -59,21 +59,25 @@
     border:1px solid var(--line);border-radius:100px;padding:7px 15px;margin-bottom:22px;
   }
   .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--bark)}
+  .kicker .v-badge{
+    background:var(--bark);color:#fff;font-size:10.5px;font-weight:700;
+    padding:2px 9px;border-radius:100px;letter-spacing:.06em;
+  }
   h1{
     font-family:'Fraunces',serif;font-weight:600;font-optical-sizing:auto;
     font-size:clamp(40px,6.4vw,72px);line-height:1.02;letter-spacing:-.018em;color:var(--ink);
-    max-width:14ch;
+    max-width:16ch;
   }
   h1 em{font-style:italic;color:var(--cedar)}
-  .lede{
-    font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:54ch;margin-top:22px;
-  }
+  .lede{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:54ch;margin-top:22px}
   .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
   .chip{
     font-size:13px;font-weight:500;color:var(--ink);background:var(--card);
     border:1px solid var(--line);border-radius:100px;padding:8px 16px;box-shadow:var(--shadow);
   }
   .chip b{color:var(--cedar);font-weight:700}
+  .chip.new{border-color:var(--bark);color:var(--bark)}
+  .chip.new b{color:var(--bark)}
 
   /* ---------- PRINCIPLE BANNER ---------- */
   .principle{
@@ -88,10 +92,10 @@
   .principle .p-kick{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:12px}
   .principle h2{
     font-family:'Fraunces',serif;font-weight:500;font-size:clamp(22px,3vw,30px);line-height:1.22;
-    letter-spacing:-.01em;max-width:30ch;position:relative;z-index:1;
+    letter-spacing:-.01em;max-width:34ch;position:relative;z-index:1;
   }
   .principle h2 b{color:#fff;font-weight:600}
-  .principle .note{margin-top:18px;font-size:14px;color:#CFE0D5;max-width:62ch;position:relative;z-index:1}
+  .principle .note{margin-top:18px;font-size:14px;color:#CFE0D5;max-width:70ch;position:relative;z-index:1}
   .principle .note strong{color:var(--bark-soft);font-weight:600}
 
   /* ---------- SECTION HEADS ---------- */
@@ -100,12 +104,103 @@
   .sec-head h3{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(24px,3.4vw,34px);letter-spacing:-.01em}
   .sec-sub{color:var(--ink-soft);font-size:15px;margin-bottom:26px;max-width:60ch}
 
+  /* ---------- 60/90 SPLIT DIAGRAM ---------- */
+  .split-diagram{
+    background:var(--card);border:1px solid var(--line);border-radius:24px;
+    padding:36px 40px;box-shadow:var(--shadow);margin-bottom:10px;
+  }
+  .split-diagram .sd-head{font-family:'Fraunces',serif;font-weight:600;font-size:20px;margin-bottom:24px;letter-spacing:-.01em}
+  .fork-visual{
+    display:flex;align-items:stretch;gap:0;position:relative;
+    margin:16px 0 28px;
+  }
+  .fork-trunk{
+    display:flex;flex-direction:column;align-items:center;
+    width:120px;flex:none;
+  }
+  .fork-trunk .ft-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+  .fork-trunk .ft-node{
+    width:52px;height:52px;border-radius:50%;border:2px solid var(--cedar);background:var(--card);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    font-family:'Fraunces',serif;font-weight:700;font-size:13px;color:var(--cedar);
+    box-shadow:var(--shadow);
+  }
+  .fork-trunk .ft-node .small{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .fork-connector{
+    display:flex;flex-direction:column;justify-content:center;
+    width:60px;flex:none;position:relative;
+  }
+  .fork-connector::before{content:"";position:absolute;left:0;top:26px;width:100%;height:2px;background:var(--sage)}
+  .fork-connector .fc-split{
+    position:absolute;right:0;top:0;height:52px;width:2px;background:var(--sage-pale);
+    border-radius:1px;
+  }
+  .fork-connector .fc-up{position:absolute;right:0;top:0;width:30px;height:27px;border-top:2px solid var(--cedar);border-right:2px solid var(--cedar);border-radius:0 10px 0 0}
+  .fork-connector .fc-down{position:absolute;right:0;bottom:0;width:30px;height:27px;border-bottom:2px solid var(--arm-b);border-right:2px solid var(--arm-b);border-radius:0 0 10px 0}
+  .fork-arms{display:flex;flex-direction:column;gap:12px;flex:1}
+  .fork-arm{
+    flex:1;border-radius:16px;padding:18px 22px;
+  }
+  .fork-arm.arm-a{background:var(--sage-pale);border:1px solid var(--sage)}
+  .fork-arm.arm-b{background:#FDF0E8;border:1px dashed var(--bark)}
+  .fork-arm .fa-label{
+    font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px;
+  }
+  .fork-arm.arm-a .fa-label{color:var(--cedar-deep)}
+  .fork-arm.arm-b .fa-label{color:var(--bark)}
+  .fork-arm .fa-title{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin-bottom:4px}
+  .fork-arm .fa-note{font-size:13px;color:var(--ink-soft)}
+
+  .timing-table{width:100%;border-collapse:collapse;margin-top:18px;font-size:13.5px}
+  .timing-table th{text-align:left;padding:10px 14px;background:var(--paper-2);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--line)}
+  .timing-table td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .timing-table tr:last-child td{border-bottom:none}
+  .timing-table tr:hover td{background:var(--paper-2)}
+  .timing-table .same{color:var(--ink-soft);font-size:12px;letter-spacing:.04em}
+  .timing-table .t-a{color:var(--cedar-deep);font-weight:600}
+  .timing-table .t-b{color:var(--bark);font-weight:600}
+  .timing-table .step-name{font-weight:500}
+  .timing-table .step-type{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px}
+  .arm-pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
+  .arm-pill.a{background:var(--sage-pale);color:var(--cedar-deep)}
+  .arm-pill.b{background:#FDF0E8;color:var(--bark);border:1px dashed var(--bark)}
+
+  /* ---------- PRODUCT LANES GRID ---------- */
+  .lanes-grid{display:grid;gap:14px;margin-bottom:8px}
+  @media(min-width:720px){.lanes-grid{grid-template-columns:repeat(2,1fr)}}
+  .lane-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 24px;box-shadow:var(--shadow);
+    transition:transform .3s,box-shadow .3s;cursor:pointer;
+  }
+  .lane-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+  .lane-card.active{border-color:var(--cedar);box-shadow:0 0 0 3px rgba(47,94,77,.12),var(--shadow-lift)}
+  .lane-card .lc-num{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bark);margin-bottom:8px}
+  .lane-card h4{font-family:'Fraunces',serif;font-weight:600;font-size:18px;margin-bottom:6px;letter-spacing:-.01em}
+  .lane-card .lc-note{font-size:13px;color:var(--ink-soft);margin-bottom:10px}
+  .lane-card .lc-path{
+    display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+    font-size:12.5px;font-weight:500;margin-top:10px;
+  }
+  .lane-card .lc-path .step{background:var(--paper-2);border:1px solid var(--line);padding:4px 10px;border-radius:100px;color:var(--ink)}
+  .lane-card .lc-path .arrow{color:var(--sage);font-size:14px}
+  .lane-card .lc-path .step.highlight{background:var(--sage-pale);border-color:var(--sage);color:var(--cedar-deep);font-weight:600}
+
+  /* ---------- LANE TABS ---------- */
+  .lane-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;margin-top:32px}
+  .lane-tab{
+    font-size:13.5px;font-weight:600;padding:9px 20px;border-radius:100px;
+    border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+    cursor:pointer;transition:all .22s;box-shadow:var(--shadow);
+  }
+  .lane-tab:hover{border-color:var(--cedar);color:var(--cedar)}
+  .lane-tab.active{background:var(--cedar);color:#fff;border-color:var(--cedar);box-shadow:var(--shadow-lift)}
+
   /* ---------- JOURNEY SPINE ---------- */
   .journey{position:relative;padding-left:0}
   .stage{
     position:relative;display:grid;grid-template-columns:108px 1fr;gap:0;
-    padding-bottom:26px;
-    animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
+    padding-bottom:26px;animation:rise .7s cubic-bezier(.2,.7,.2,1) both;
   }
   .stage:nth-child(1){animation-delay:.02s}
   .stage:nth-child(2){animation-delay:.08s}
@@ -114,7 +209,7 @@
   .stage:nth-child(5){animation-delay:.26s}
   .stage:nth-child(6){animation-delay:.32s}
   .stage:nth-child(7){animation-delay:.38s}
-  /* the rail */
+  .stage:nth-child(8){animation-delay:.44s}
   .rail{position:relative}
   .rail::before{
     content:"";position:absolute;left:23px;top:8px;bottom:-26px;width:2px;
@@ -127,30 +222,40 @@
     display:flex;align-items:center;justify-content:center;flex-direction:column;
     box-shadow:var(--shadow);
   }
-  .node .d{font-family:'Fraunces',serif;font-weight:700;font-size:15px;color:var(--cedar);line-height:1}
+  .node .d{font-family:'Fraunces',serif;font-weight:700;font-size:13px;color:var(--cedar);line-height:1}
   .node .dl{font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px}
   .node.start{border-color:var(--ink);background:var(--ink)}
-  .node.start .d{color:#fff;font-size:13px}
+  .node.start .d{color:#fff;font-size:12px}
   .node.start .dl{color:var(--sage)}
   .node.end{border-color:var(--bark);border-style:dashed;background:var(--bark-soft)}
   .node.end .d{color:var(--bark)}
   .node.sms{border-color:var(--sage)}
   .node.sms .d{color:var(--cedar)}
+  .node.split{border-color:var(--bark);background:var(--bark-soft)}
+  .node.split .d{color:var(--bark);font-size:11px}
 
-  /* stage content card */
+  /* dual timing on diverging steps */
+  .dual-timing{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+  }
+  .dual-timing .d-a{font-family:'Fraunces',serif;font-weight:700;font-size:12px;color:var(--cedar);line-height:1}
+  .dual-timing .d-b{font-size:10px;font-weight:600;color:var(--bark)}
+  .dual-timing .dl{font-size:8px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)}
+
+  /* stage card */
   .scard{
     background:var(--card);border:1px solid var(--line);border-radius:var(--r);
     box-shadow:var(--shadow);padding:22px 24px;margin-left:6px;
     transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
-    display:grid;grid-template-columns:1fr;gap:18px;
   }
   .scard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
-  @media(min-width:760px){ .scard.has-preview{grid-template-columns:1fr 300px} }
+  .scard.arm-b-card{border-style:solid;border-color:var(--line)}
   .scard .tag-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}
   .tag{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px}
   .tag.email{background:var(--sage-pale);color:var(--cedar-deep)}
   .tag.sms{background:#F2E3D8;color:var(--bark)}
   .tag.all{background:#EEEAE0;color:var(--ink-soft)}
+  .tag.fork{background:#FDF0E8;color:var(--bark);border:1px dashed var(--bark)}
   .scard h4{font-family:'Fraunces',serif;font-weight:600;font-size:21px;letter-spacing:-.01em;margin-bottom:6px}
   .scard p.purpose{font-size:14.5px;color:var(--ink-soft);margin-bottom:14px}
   .detail{font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;padding-left:18px;position:relative}
@@ -159,50 +264,119 @@
   .subj{margin-top:12px;font-size:13px;color:var(--ink);background:var(--paper-2);border:1px dashed var(--line);border-radius:10px;padding:9px 13px}
   .subj span{color:var(--bark);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:10.5px;display:block;margin-bottom:2px}
 
-  /* ---------- EMAIL PREVIEW MOCKUP ---------- */
-  .preview{
-    background:var(--paper-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;
-    box-shadow:0 6px 18px rgba(30,42,35,.08);align-self:start;
+  /* lane-specific content */
+  .lane-content{display:none}
+  .lane-content.active{display:block}
+
+  .lane-box{
+    margin-top:12px;border-radius:12px;padding:13px 16px;font-size:13.5px;
+    background:var(--paper-2);border:1px solid var(--line);
   }
-  .pv-bar{display:flex;align-items:center;gap:6px;padding:9px 13px;border-bottom:1px solid var(--line);background:#fff}
-  .pv-bar .b{width:8px;height:8px;border-radius:50%;background:var(--line)}
-  .pv-brand{margin-left:8px;font-family:'Fraunces',serif;font-weight:600;font-size:13px;color:var(--cedar);letter-spacing:.02em}
-  .pv-hero{height:78px;background:linear-gradient(135deg,var(--sage),var(--cedar));position:relative}
-  .pv-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(120px 80px at 80% 20%,rgba(255,255,255,.25),transparent)}
-  .pv-body{padding:14px 15px 17px}
-  .pv-body .h{font-family:'Fraunces',serif;font-size:16px;font-weight:600;line-height:1.2;color:var(--ink);margin-bottom:6px}
-  .pv-body .t{font-size:12px;color:var(--ink-soft);line-height:1.5}
-  .pv-body .t.quote{font-style:italic;border-left:2px solid var(--sage);padding-left:10px;margin:8px 0}
-  .pv-cta{display:inline-block;margin-top:13px;background:var(--cedar);color:#fff;font-size:12px;font-weight:600;padding:9px 16px;border-radius:100px}
-  .pv-cta.second{background:transparent;color:var(--cedar);border:1px solid var(--cedar);margin-left:7px}
+  .lane-box .lb-label{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cedar);margin-bottom:6px}
+  .lane-box p{color:var(--ink-soft);line-height:1.5}
+  .lane-box p b{color:var(--ink);font-weight:600}
 
   /* SMS preview */
-  .sms-pv{background:transparent;border:none;box-shadow:none;padding-top:4px}
-  .sms-bubble{background:var(--cedar);color:#EEF3EE;font-size:13px;line-height:1.45;padding:13px 16px;border-radius:18px 18px 18px 5px;max-width:280px;box-shadow:var(--shadow)}
+  .sms-bubble{background:var(--cedar);color:#EEF3EE;font-size:13px;line-height:1.45;padding:13px 16px;border-radius:18px 18px 18px 5px;max-width:280px;box-shadow:var(--shadow);margin-top:12px}
   .sms-bubble .lk{color:var(--bark-soft);text-decoration:underline}
   .sms-meta{font-size:11px;color:var(--ink-soft);margin-top:7px;margin-left:4px}
 
-  /* split row */
-  .split-grid{display:grid;gap:16px;margin-left:6px}
-  @media(min-width:760px){ .split-grid{grid-template-columns:1fr 1fr} }
-  .split-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:20px 22px;transition:transform .35s,box-shadow .35s}
-  .split-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
-  .split-card .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px;margin-bottom:12px}
-  .split-card.member .badge{background:var(--sage-pale);color:var(--cedar-deep)}
-  .split-card.nonmember .badge{background:#F2E3D8;color:var(--bark)}
-  .split-card h5{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:10px}
-  .split-note{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
-  .split-fork{display:flex;align-items:center;gap:10px;margin:0 0 14px 6px;color:var(--cedar);font-weight:600;font-size:13.5px}
-  .split-fork svg{flex:none}
+  /* stat inline */
+  .stat-inline{
+    display:inline-flex;align-items:center;gap:6px;background:var(--sage-pale);
+    border-radius:8px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--cedar-deep);margin:4px 4px 4px 0;
+  }
+
+  /* ---------- EMAIL 4 DEEP DIVE — 3-WAY FORK ---------- */
+  .three-split-grid{display:grid;gap:14px;margin-left:6px}
+  @media(min-width:800px){.three-split-grid{grid-template-columns:repeat(3,1fr)}}
+  .split3-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:20px 22px;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .split3-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+  .split3-card .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px;margin-bottom:12px}
+  .split3-card.member .badge{background:var(--sage-pale);color:var(--cedar-deep)}
+  .split3-card.nonmember .badge{background:#F2E3D8;color:var(--bark)}
+  .split3-card.cancelled .badge{background:#EEE9FF;color:#5B4CA0}
+  .split3-card h5{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .split3-card .sp-note{font-size:13.5px;color:var(--ink-soft);margin-bottom:12px}
+  .sp-rule{font-size:12.5px;color:var(--ink);background:var(--paper-2);border-radius:8px;padding:8px 12px;margin-top:8px}
+  .sp-rule .rule-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bark);display:block;margin-bottom:2px}
+  .split3-card .cta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .cta-btn{font-size:12px;font-weight:600;padding:8px 14px;border-radius:100px;text-decoration:none}
+  .cta-btn.primary{background:var(--cedar);color:#fff}
+  .cta-btn.secondary{background:transparent;color:var(--cedar);border:1px solid var(--cedar)}
+  .cta-btn.curious{background:transparent;color:#5B4CA0;border:1px solid #B8AEED}
+  .fork-label{
+    display:flex;align-items:center;gap:10px;margin:0 0 16px 6px;
+    color:var(--cedar);font-weight:600;font-size:13.5px;
+  }
+
+  /* ---------- EMAIL 5 DEEP DIVE ---------- */
+  .ladder-grid{display:grid;gap:14px}
+  @media(min-width:720px){.ladder-grid{grid-template-columns:repeat(2,1fr)}}
+  .ladder-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:22px 24px;
+  }
+  .ladder-card .lc-badge{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px;margin-bottom:14px;display:inline-block}
+  .ladder-card.dmc .lc-badge,.ladder-card.serum .lc-badge{background:var(--sage-pale);color:var(--cedar-deep)}
+  .ladder-card.trio .lc-badge{background:#F2E3D8;color:var(--bark)}
+  .ladder-card.general .lc-badge{background:#EEEAE0;color:var(--ink-soft)}
+  .ladder-card h5{font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-bottom:12px}
+  .ladder-steps{display:flex;flex-direction:column;gap:8px}
+  .ladder-step{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--paper-2);
+    font-size:13.5px;
+  }
+  .ladder-step .ls-num{
+    width:22px;height:22px;border-radius:50%;flex:none;margin-top:1px;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;
+  }
+  .ladder-card.dmc .ls-num,.ladder-card.serum .ls-num{background:var(--sage-pale);color:var(--cedar-deep)}
+  .ladder-card.trio .ls-num{background:#F2E3D8;color:var(--bark)}
+  .ladder-card.general .ls-num{background:#EEEAE0;color:var(--ink-soft)}
+  .ladder-step .ls-body{}
+  .ladder-step .ls-label{font-weight:600;color:var(--ink)}
+  .ladder-step .ls-note{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+  .ladder-direction{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;display:inline-block;margin-top:10px}
+  .ladder-card.dmc .ladder-direction,.ladder-card.serum .ladder-direction{background:var(--sage-pale);color:var(--cedar-deep)}
+  .ladder-card.trio .ladder-direction{background:#F2E3D8;color:var(--bark)}
 
   /* ---------- BUILD LOGIC ---------- */
   .grid-2{display:grid;gap:16px}
   @media(min-width:720px){.grid-2{grid-template-columns:repeat(2,1fr)}}
   .logic{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow)}
   .logic h4{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-bottom:6px}
-  .logic h4 .ic{width:30px;height:30px;border-radius:9px;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;color:var(--cedar);flex:none}
+  .logic h4 .ic{width:30px;height:30px;border-radius:9px;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;color:var(--cedar);flex:none;font-size:14px}
   .logic p{font-size:13.5px;color:var(--ink-soft)}
   .logic p b{color:var(--ink);font-weight:600}
+
+  /* segment */
+  .seg-grid{display:grid;gap:14px;margin-bottom:24px}
+  @media(min-width:720px){.seg-grid{grid-template-columns:repeat(3,1fr)}}
+  .seg-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+  .seg-card .sg-l{font-size:12px;color:var(--ink-soft);font-weight:500;margin-bottom:4px}
+  .seg-card .sg-v{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--cedar);line-height:1}
+  .seg-card .sg-sub{font-size:12px;color:var(--ink-soft);margin-top:4px}
+  .seg-card.highlight{border-color:var(--cedar);background:var(--sage-pale)}
+  .seg-card.highlight .sg-v{color:var(--cedar-deep)}
+
+  /* membership breakdown bar */
+  .mem-bar-wrap{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 28px;box-shadow:var(--shadow);margin-bottom:14px}
+  .mem-bar-wrap h4{font-family:'Fraunces',serif;font-size:16px;font-weight:600;margin-bottom:16px}
+  .mem-bar{display:flex;height:14px;border-radius:100px;overflow:hidden;margin-bottom:14px}
+  .mem-bar .seg{transition:width .6s}
+  .mem-bar .active-mem{background:var(--cedar);width:58%}
+  .mem-bar .cancelled-mem{background:var(--bark);width:23%}
+  .mem-bar .paused-mem{background:var(--bark-soft);width:6%}
+  .mem-bar .never-mem{background:var(--sage-pale);width:13%}
+  .mem-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px}
+  .mem-legend .leg{display:flex;align-items:center;gap:7px}
+  .mem-legend .leg .dot{width:10px;height:10px;border-radius:50%;flex:none}
 
   /* metrics */
   .metrics{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
@@ -217,9 +391,10 @@
   .check .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--sage);flex:none;margin-top:1px}
   .check b{font-weight:600}
 
-  /* footer */
   footer{margin:60px 0 70px;padding-top:26px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13.5px;line-height:1.6}
   footer b{color:var(--cedar)}
+
+  .rule-hard{font-size:13px;color:#fff;background:var(--bark);border-radius:8px;padding:5px 12px;display:inline-block;margin-top:8px;font-weight:600}
 
   @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -227,255 +402,742 @@
     .stage{grid-template-columns:64px 1fr}
     .rail::before{left:23px}
     .node{width:46px;height:46px}
+    .split-diagram{padding:22px 18px}
+    .three-split-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- HERO -->
+  <!-- ===================== HERO ===================== -->
   <header class="hero">
-    <span class="kicker"><span class="dot"></span>Lifecycle &middot; Klaviyo Flow</span>
-    <h1>The Replenishment <em>Journey</em></h1>
-    <p class="lede">A clean, four-email plus SMS flow that reaches each customer right before their product runs out, so the reorder lands before they hit empty. Built for Klaviyo, designed for trust.</p>
+    <span class="kicker">
+      <span class="dot"></span>Lifecycle &middot; Klaviyo Flow
+      <span class="v-badge">V2 · June 2026</span>
+    </span>
+    <h1>The Replenishment <em>Journey</em> V2</h1>
+    <p class="lede">Four product lanes. Five emails plus SMS per lane. A 60/90-day split test baked in. Built for RMDY Brands — ready to brief Klaviyo when approved.</p>
     <div class="meta">
-      <span class="chip"><b>4</b> Emails</span>
-      <span class="chip"><b>1</b> SMS</span>
+      <span class="chip"><b>4</b> Product Lanes</span>
+      <span class="chip"><b>5 Emails + 1 SMS</b> per lane</span>
+      <span class="chip new"><b>60/90 Day</b> Split Test</span>
+      <span class="chip new"><b>3-Lane</b> Status Fork</span>
       <span class="chip">Trigger: <b>Placed Order</b></span>
-      <span class="chip"><b>1</b> conditional split</span>
-      <span class="chip">Timed to <b>run-out</b></span>
+      <span class="chip">Auto-exit: <b>on reorder</b></span>
     </div>
   </header>
 
-  <!-- PRINCIPLE -->
+  <!-- ===================== PRINCIPLE ===================== -->
   <section class="principle">
-    <div class="p-kick">The principle</div>
-    <h2>Every send is <b>back-timed from the ~60-day run-out</b>, so the reorder reminder arrives just as the bottle empties, never before.</h2>
-    <p class="note">All timings below assume a 60-day run-out. <strong>One thing to confirm with the client:</strong> validate this against real reorder data. If the true window shifts, every send moves by the same amount and nothing else in the flow changes.</p>
+    <div class="p-kick">The V2 Principle</div>
+    <h2>Launch at <b>60 days.</b> Split-test to <b>90.</b> Let your customers tell you when they're ready to reorder.</h2>
+    <p class="note">V1 validated that 58-day median reorder cadence. V2 uses that data to run a proper timing test — 50% get the 60-day window, 50% get 90. Emails 1–3 are shared. Only the reorder push diverges. <strong>Winner by reorder rate, first read at 90 days post-launch.</strong></p>
   </section>
 
-  <!-- JOURNEY -->
-  <div class="sec-head"><span class="num">01</span><h3>The journey, step by step</h3></div>
-  <p class="sec-sub">Emails 1 to 3 and the SMS are the same for everyone. Only the final offer email forks, based on whether the customer is already a Riversol+ member.</p>
+  <!-- ===================== 60/90 SPLIT TEST ===================== -->
+  <div class="sec-head"><span class="num">01</span><h3>The 60/90 Split Test</h3></div>
+  <p class="sec-sub">The flow splits at entry — Klaviyo A/B on trigger. 50% go 60-day, 50% go 90-day. Only the final three touchpoints shift.</p>
+
+  <div class="split-diagram">
+    <div class="sd-head">How the arms diverge</div>
+
+    <div style="display:flex;gap:14px;margin-bottom:24px;flex-wrap:wrap">
+      <div style="flex:1;min-width:220px;background:var(--sage-pale);border-radius:14px;padding:16px 20px;border:1px solid var(--sage)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cedar-deep);margin-bottom:6px">ARM A — 60-Day</div>
+        <div style="font-family:'Fraunces',serif;font-weight:600;font-size:16px;margin-bottom:4px">Earlier reorder push</div>
+        <div style="font-size:13px;color:var(--ink-soft)">SMS fires Day 54. Emails 4+5 fire Day 57 + Day 60. Best for high-engagement buyers.</div>
+      </div>
+      <div style="flex:1;min-width:220px;background:#FDF0E8;border-radius:14px;padding:16px 20px;border:1px dashed var(--bark)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--bark);margin-bottom:6px">ARM B — 90-Day</div>
+        <div style="font-family:'Fraunces',serif;font-weight:600;font-size:16px;margin-bottom:4px">Extended nurture window</div>
+        <div style="font-size:13px;color:var(--ink-soft)">SMS fires Day 84. Emails 4+5 fire Day 87 + Day 90. Tests whether a longer nurture window converts more.</div>
+      </div>
+    </div>
+
+    <table class="timing-table">
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th><span class="arm-pill a">Arm A · 60-Day</span></th>
+          <th><span class="arm-pill b">Arm B · 90-Day</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="step-name">Email 1 — Progress Check-In</div><div class="step-type">Email</div></td>
+          <td class="t-a">Day 30</td>
+          <td><span class="t-b">Day 30</span> <span style="font-size:11px;color:var(--ink-soft);margin-left:4px">same</span></td>
+        </tr>
+        <tr>
+          <td><div class="step-name">Email 2 — Full Cycle Education</div><div class="step-type">Email</div></td>
+          <td class="t-a">Day 44</td>
+          <td><span class="t-b">Day 44</span> <span style="font-size:11px;color:var(--ink-soft);margin-left:4px">same</span></td>
+        </tr>
+        <tr>
+          <td><div class="step-name">Email 3 — Social Proof</div><div class="step-type">Email</div></td>
+          <td class="t-a">Day 51</td>
+          <td><span class="t-b">Day 51</span> <span style="font-size:11px;color:var(--ink-soft);margin-left:4px">same</span></td>
+        </tr>
+        <tr style="background:#FEF9F5">
+          <td><div class="step-name">SMS — Running Low Nudge</div><div class="step-type">SMS</div></td>
+          <td class="t-a">Day 54</td>
+          <td class="t-b">Day 84 ↑</td>
+        </tr>
+        <tr style="background:#FEF9F5">
+          <td><div class="step-name">Email 4 — Status Check-In</div><div class="step-type">Email · 3-way fork</div></td>
+          <td class="t-a">Day 57</td>
+          <td class="t-b">Day 87 ↑</td>
+        </tr>
+        <tr style="background:#FEF9F5">
+          <td><div class="step-name">Email 5 — Upsell / Downsell</div><div class="step-type">Email · per-lane logic</div></td>
+          <td class="t-a">Day 60</td>
+          <td class="t-b">Day 90 ↑</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:18px;font-size:13px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px">
+      <b style="color:var(--ink)">Winner determined by:</b> Reorder rate per recipient.
+      <b style="color:var(--ink);margin-left:18px">First read at:</b> 90 days post-launch.
+      <b style="color:var(--ink);margin-left:18px">50/50 split</b> set on Klaviyo A/B trigger at flow entry.
+    </div>
+  </div>
+
+  <!-- ===================== PRODUCT LANES OVERVIEW ===================== -->
+  <div class="sec-head"><span class="num">02</span><h3>Product Lanes</h3></div>
+  <p class="sec-sub">Every lane runs the same 5-email + SMS spine. The differences are product-specific copy, hero block, and Email 5 upsell/downsell logic.</p>
+
+  <div class="lanes-grid">
+    <div class="lane-card" onclick="setLane('dmc')">
+      <div class="lc-num">Lane 1</div>
+      <h4>Daily Moisturizing Cream</h4>
+      <div class="lc-note">Bestseller. Most common entry point. Upsell path walks customer up the range.</div>
+      <div class="lc-path">
+        <span class="step highlight">DMC</span>
+        <span class="arrow">→</span>
+        <span class="step">Duo Bundle</span>
+        <span class="arrow">→</span>
+        <span class="step">Anti-Aging Trio</span>
+      </div>
+    </div>
+    <div class="lane-card" onclick="setLane('serum')">
+      <div class="lc-num">Lane 2</div>
+      <h4>Anti-Aging Serum</h4>
+      <div class="lc-note">Hinokitiol (Beta-T) + Vitamin C + Vitamin E. Fine lines, tone, dullness. Upsell via pairing.</div>
+      <div class="lc-path">
+        <span class="step highlight">Serum</span>
+        <span class="arrow">→</span>
+        <span class="step">Duo Bundle</span>
+        <span class="arrow">→</span>
+        <span class="step">Anti-Aging Trio</span>
+      </div>
+    </div>
+    <div class="lane-card" onclick="setLane('trio')">
+      <div class="lc-num">Lane 3</div>
+      <h4>Anti-Aging Trio</h4>
+      <div class="lc-note">Top of range. Reorder is the win. Downsell path is a retention play, not a revenue-down play.</div>
+      <div class="lc-path">
+        <span class="step highlight">Trio</span>
+        <span class="arrow">→</span>
+        <span class="step">Duo</span>
+        <span class="arrow">→</span>
+        <span class="step">Singles</span>
+      </div>
+    </div>
+    <div class="lane-card" onclick="setLane('general')">
+      <div class="lc-num">Lane 4</div>
+      <h4>General / Mixed Orders</h4>
+      <div class="lc-note">Catch-all for mixed or non-specific orders. No upsell direction — surface the top 3 products.</div>
+      <div class="lc-path">
+        <span class="step">DMC</span>
+        <span class="arrow">/</span>
+        <span class="step">Serum</span>
+        <span class="arrow">/</span>
+        <span class="step">Trio</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== THE JOURNEY ===================== -->
+  <div class="sec-head"><span class="num">03</span><h3>The Journey, Step by Step</h3></div>
+  <p class="sec-sub">Use the lane selector below to see product-specific guidance per step. Steps marked with a timing split show both Arm A and Arm B send days.</p>
+
+  <!-- Lane tabs -->
+  <div class="lane-tabs">
+    <button class="lane-tab active" onclick="setLane('dmc')">Daily Moisturizing Cream</button>
+    <button class="lane-tab" onclick="setLane('serum')">Anti-Aging Serum</button>
+    <button class="lane-tab" onclick="setLane('trio')">Anti-Aging Trio</button>
+    <button class="lane-tab" onclick="setLane('general')">General</button>
+  </div>
 
   <div class="journey">
 
-    <!-- DAY 0 -->
+    <!-- DAY 0 — TRIGGER -->
     <div class="stage">
-      <div class="rail"><div class="node start"><span class="d">Day 0</span><span class="dl">Buy</span></div></div>
+      <div class="rail"><div class="node start"><span class="d">Day 0</span><span class="dl">Trigger</span></div></div>
       <div class="scard">
-        <div>
-          <div class="tag-row"><span class="tag all">Entry</span></div>
-          <h4>The customer places an order</h4>
-          <p class="purpose">This is the trigger. The flow begins quietly. Active Auto-Replenish subscribers are excluded, since their product already ships on its own.</p>
-        </div>
+        <div class="tag-row"><span class="tag all">Entry · Flow Trigger</span></div>
+        <h4>Customer places an order</h4>
+        <p class="purpose">Flow fires on Placed Order. Before the first send, Klaviyo A/B splits 50/50 into the 60-day arm (A) and 90-day arm (B). Exclusions applied at entry: active Auto-Replenish subscribers, and anyone already active in this flow.</p>
+        <p class="detail"><b>Auto-exit guard:</b> Before every send, a conditional split checks "Placed Order since flow start." Reordered = exit. No one gets chased after they convert.</p>
+        <p class="detail"><b>Re-entry:</b> Allowed after previous flow completion — each new order is a new journey.</p>
       </div>
     </div>
 
-    <!-- EMAIL 1 -->
+    <!-- EMAIL 1 — DAY 30 -->
     <div class="stage">
       <div class="rail"><div class="node"><span class="d">30</span><span class="dl">Day</span></div></div>
-      <div class="scard has-preview">
-        <div>
-          <div class="tag-row"><span class="tag email">Email 1</span><span class="tag all">All customers</span></div>
-          <h4>Progress check-in</h4>
-          <p class="purpose">Reassure them they are right at the point where results tend to show, and plant the idea that consistency earns the payoff. Soft, not a sell.</p>
-          <p class="detail"><b>Angle:</b> mature skin renews more slowly, so the benefit lands around the time the bottle finishes.</p>
-          <p class="detail"><b>Hero block:</b> reorder your favourites, pulling their own past products.</p>
-          <div class="subj"><span>Subject direction</span>You are right at the turning point</div>
+      <div class="scard">
+        <div class="tag-row"><span class="tag email">Email 1</span><span class="tag all">All customers · Both arms</span></div>
+        <h4>Progress Check-In</h4>
+        <p class="purpose">Day 30 is when results start to show. Warm, reassuring, zero sell pressure. Hero block pulls their purchased product dynamically.</p>
+        <p class="detail"><b>Angle:</b> You're at the turning point. Consistency earns the payoff.</p>
+        <p class="detail"><b>Hero block:</b> Reorder your favourites — dynamic, pulls their purchased product.</p>
+        <p class="detail"><b>Authority:</b> Dr. Jason Rivers anchor. Include trust banner universal block.</p>
+        <p class="detail"><b>Made in Canada flag:</b> Show for CA recipients. Suppress for US via conditional logic.</p>
+        <div class="subj"><span>Subject direction</span>"You're right at your skin's turning point" / "Your routine is just hitting its stride"</div>
+
+        <!-- Lane-specific content -->
+        <div class="lane-content active" data-lane="dmc">
+          <div class="lane-box"><div class="lb-label">DMC Lane — Specific direction</div><p>Include step-by-step routine reminder: <b>Cleanse → Treat → Moisturise.</b> Reinforce that the DMC locks everything in. Position the cream as the anchor of the routine, not just the moisturiser.</p></div>
         </div>
-        <div class="preview">
-          <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
-          <div class="pv-hero"></div>
-          <div class="pv-body">
-            <div class="h">Your skin is just hitting its stride</div>
-            <div class="t">This is the point where staying consistent starts to show. Reviewed and approved by award-winning dermatologist Dr. Jason Rivers.</div>
-            <span class="pv-cta">Reorder my routine</span>
-          </div>
+        <div class="lane-content" data-lane="serum">
+          <div class="lane-box"><div class="lb-label">Serum Lane — Specific direction</div><p>Call out the active ingredients: <b>Hinokitiol (Beta-T), Vitamin C, Vitamin E.</b> Targets: the appearance of fine lines, uneven tone, dullness. Day 30 is when ingredient actives start to compound. Don't oversell — just affirm.</p></div>
+        </div>
+        <div class="lane-content" data-lane="trio">
+          <div class="lane-box"><div class="lb-label">Trio Lane — Specific direction</div><p>Break down the 3-step synergy: <b>Cleanse → Serum → Moisturise.</b> Reinforce that using all three together is what makes the Trio work — each step prepares skin for the next. "The full system working together."</p></div>
+        </div>
+        <div class="lane-content" data-lane="general">
+          <div class="lane-box"><div class="lb-label">General Lane — Specific direction</div><p>Consistency messaging. No product-specific steps. Anchor to <b>Dr. Jason Rivers</b> and Riversol's dermatologist-developed approach. "Whatever your routine looks like, the key is showing up for it."</p></div>
         </div>
       </div>
     </div>
 
-    <!-- EMAIL 2 -->
+    <!-- EMAIL 2 — DAY 44 -->
     <div class="stage">
       <div class="rail"><div class="node"><span class="d">44</span><span class="dl">Day</span></div></div>
-      <div class="scard has-preview">
-        <div>
-          <div class="tag-row"><span class="tag email">Email 2</span><span class="tag all">All customers</span></div>
-          <h4>Why the full cycle matters</h4>
-          <p class="purpose">Educational. Explain in plain language why stopping early tends to undo progress, with a light skin-cycle note.</p>
-          <p class="detail"><b>Authority:</b> anchored to Dr. Rivers and Made in Canada formulation.</p>
-          <p class="detail"><b>Reassurance:</b> 60-day money-back guarantee.</p>
-          <div class="subj"><span>Subject direction</span>Why your skin needs the full cycle</div>
-        </div>
-        <div class="preview">
-          <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
-          <div class="pv-hero"></div>
-          <div class="pv-body">
-            <div class="h">Give your skin the time it needs</div>
-            <div class="t">Mature skin renews more slowly, so finishing the routine helps the results take hold. Powered by our signature hinokitiol (Beta-T).</div>
-            <span class="pv-cta">Reorder my routine</span>
-          </div>
-        </div>
+      <div class="scard">
+        <div class="tag-row"><span class="tag email">Email 2</span><span class="tag all">All customers · Both arms</span></div>
+        <h4>Full Cycle Education</h4>
+        <p class="purpose">Educational. Why stopping early undoes progress. Skin cycle science anchored to Dr. Rivers. Reassurance via the 60-day money-back guarantee.</p>
+        <p class="detail"><b>Core copy angle:</b> "The skin cycle runs 28–56 days. The cells forming now are influenced by what you're doing today. Stay consistent."</p>
+        <p class="detail"><b>Stat to include:</b> "90% of customers would recommend after their trial. 81% saw more radiant skin." (appearance-based, hedged)</p>
+        <p class="detail"><b>Authority:</b> Dr. Jason Rivers + Made in Canada formulation + clinically tested.</p>
+        <p class="detail"><b>Reassurance:</b> 60-day money-back guarantee. Mention in the footer or a trust module.</p>
+        <p class="detail"><b>Include:</b> Trust banner universal block (saved in Klaviyo as 'trust banner').</p>
+        <div class="subj"><span>Subject direction</span>"Don't break the cycle now" / "Your results are compounding"</div>
       </div>
     </div>
 
-    <!-- EMAIL 3 -->
+    <!-- EMAIL 3 — DAY 51 -->
     <div class="stage">
       <div class="rail"><div class="node"><span class="d">51</span><span class="dl">Day</span></div></div>
-      <div class="scard has-preview">
-        <div>
-          <div class="tag-row"><span class="tag email">Email 3</span><span class="tag all">All customers</span></div>
-          <h4>Social proof on consistency</h4>
-          <p class="purpose">Show that customers who stayed the course saw the results they were hoping for.</p>
-          <p class="detail"><b>Proof:</b> first-name, age-tagged reviews that speak to sticking with it.</p>
-          <p class="detail"><b>Claims:</b> appearance-based and hedged throughout.</p>
-          <div class="subj"><span>Subject direction</span>What happens when you stick with it</div>
-        </div>
-        <div class="preview">
-          <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
-          <div class="pv-hero"></div>
-          <div class="pv-body">
-            <div class="h">The reviews that say it best</div>
-            <div class="t quote">"I almost stopped at week six. So glad I didn't." Tanya R., 52</div>
-            <span class="pv-cta">Reorder my routine</span>
+      <div class="scard">
+        <div class="tag-row"><span class="tag email">Email 3</span><span class="tag all">All customers · Both arms</span></div>
+        <h4>Social Proof on Consistency</h4>
+        <p class="purpose">Customers who stayed the course saw results. Cross-sell via reviews. Let the community do the persuasion.</p>
+        <p class="detail"><b>Format:</b> 3–6 first-name, age-tagged reviews that speak to sticking with it. Placeholder format below.</p>
+        <p class="detail"><b>Stat block:</b> "8,700+ reviews. 85% five-star. Clinically tested for visible results in 28 days." (All claims appearance-based.)</p>
+        <p class="detail"><b>Include:</b> Trust banner universal block.</p>
+        <div class="subj"><span>Subject direction</span>"What happens when you stay with the routine" / "Three steps. Thousands of converts."</div>
+        <div style="margin-top:14px;padding:14px 16px;background:var(--paper-2);border:1px dashed var(--line);border-radius:12px">
+          <div style="font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--bark);margin-bottom:10px">Review placeholders — use these formats</div>
+          <div style="font-size:13.5px;color:var(--ink-soft);line-height:1.7;font-style:italic">
+            "I almost stopped at week six. So glad I didn't." — <b style="color:var(--ink);font-style:normal">Tanya R., 52</b><br>
+            "Wasn't sure it would work for my skin. By month two I was ordering a second bottle before the first was done." — <b style="color:var(--ink);font-style:normal">Sharon W., 64</b><br>
+            "The difference between 30 days and 60 days is everything." — <b style="color:var(--ink);font-style:normal">Linda M., 58</b>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SMS -->
+    <!-- SMS — DIVERGES (Day 54 / Day 84) -->
     <div class="stage">
-      <div class="rail"><div class="node sms"><span class="d">54</span><span class="dl">Day</span></div></div>
-      <div class="scard has-preview">
-        <div>
-          <div class="tag-row"><span class="tag sms">SMS</span><span class="tag all">Consented only</span></div>
-          <h4>One timely nudge</h4>
-          <p class="purpose">A single short, practical message at the run-low moment. No vague "offers waiting." Straight to reorder.</p>
-          <p class="detail"><b>Compliance:</b> respects CASL consent and quiet hours (Canada-first).</p>
+      <div class="rail">
+        <div class="node sms" style="border-color:var(--sage)">
+          <div class="dual-timing">
+            <span class="d-a">54</span>
+            <span class="d-b">/ 84</span>
+            <span class="dl">Day</span>
+          </div>
         </div>
-        <div class="preview sms-pv">
-          <div class="sms-bubble">Riversol: running low? Reorder your routine in two taps <span class="lk">rvsl.co/reorder</span>. Reply STOP to opt out.</div>
-          <div class="sms-meta">Sent ~Day 54, ahead of run-out</div>
+      </div>
+      <div class="scard">
+        <div class="tag-row">
+          <span class="tag sms">SMS</span>
+          <span class="tag all">Consented only</span>
+          <span class="arm-pill a">Arm A: Day 54</span>
+          <span class="arm-pill b">Arm B: Day 84</span>
+        </div>
+        <h4>Running Low Nudge</h4>
+        <p class="purpose">One short, practical message. No vague "offers waiting." Straight to reorder. CASL consent required. Quiet hours respected.</p>
+        <p class="detail"><b>Compliance:</b> CASL consent required. Quiet hours respected (Canada-first).</p>
+        <p class="detail"><b>Format:</b> Short. Practical. Product name pulled dynamically from their order.</p>
+        <div class="sms-bubble">
+          Riversol: running low on
+          <div class="lane-content active" data-lane="dmc" style="display:inline">your Daily Moisturizing Cream</div>
+          <div class="lane-content" data-lane="serum" style="display:inline">your Anti-Aging Serum</div>
+          <div class="lane-content" data-lane="trio" style="display:inline">your Anti-Aging Trio</div>
+          <div class="lane-content" data-lane="general" style="display:inline">your routine</div>
+          ? Reorder in two taps <span class="lk">rvsl.co/reorder</span>. Reply STOP to opt out.
+        </div>
+        <div class="sms-meta">Sent Day 54 (60-day arm) or Day 84 (90-day arm). Quiet hours applied.</div>
+      </div>
+    </div>
+
+    <!-- EMAIL 4 — DIVERGES (Day 57 / Day 87) — 3-WAY FORK -->
+    <div class="stage">
+      <div class="rail">
+        <div class="node split">
+          <div class="dual-timing">
+            <span class="d-a" style="color:var(--bark)">57</span>
+            <span class="d-b" style="color:var(--bark)">/ 87</span>
+            <span class="dl">Day</span>
+          </div>
+        </div>
+      </div>
+      <div class="scard" style="border-color:var(--bark-soft)">
+        <div class="tag-row">
+          <span class="tag email">Email 4</span>
+          <span class="tag fork">3-Way Fork</span>
+          <span class="arm-pill a">Arm A: Day 57</span>
+          <span class="arm-pill b">Arm B: Day 87</span>
+        </div>
+        <h4>Status Check-In</h4>
+        <p class="purpose">The most complex email in the flow. Forks on Riversol+ membership status. Three lanes. Each gets a tailored message — never a mismatch between status and pitch. See Section 05 for the full deep dive.</p>
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+          <div style="flex:1;min-width:160px;background:var(--sage-pale);border-radius:10px;padding:12px 14px;font-size:13px">
+            <div style="font-weight:700;color:var(--cedar-deep);margin-bottom:4px">Lane A: Active Member</div>
+            <div style="color:var(--ink-soft)">Show credit + Smile points. CTA: reorder with credit.</div>
+          </div>
+          <div style="flex:1;min-width:160px;background:#F2E3D8;border-radius:10px;padding:12px 14px;font-size:13px">
+            <div style="font-weight:700;color:var(--bark);margin-bottom:4px">Lane B: Never Joined</div>
+            <div style="color:var(--ink-soft)">Show Smile points. Invite to Riversol+. Soft FOMO.</div>
+          </div>
+          <div style="flex:1;min-width:160px;background:#EEE9FF;border-radius:10px;padding:12px 14px;font-size:13px">
+            <div style="font-weight:700;color:#5B4CA0;margin-bottom:4px">Lane C: Cancelled/Paused</div>
+            <div style="color:var(--ink-soft)">No membership pitch. Tease Jun 22 launch. Re-engage warmly.</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- EMAIL 4 SPLIT -->
+    <!-- EMAIL 5 — DIVERGES (Day 60 / Day 90) -->
     <div class="stage">
-      <div class="rail"><div class="node"><span class="d">57</span><span class="dl">Day</span></div></div>
-      <div style="margin-left:6px">
-        <div class="split-fork">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6"/><path d="M6 21V9"/><circle cx="6" cy="3" r="0"/></svg>
-          Email 4 forks here, the only split in the whole flow
+      <div class="rail">
+        <div class="node" style="border-color:var(--bark)">
+          <div class="dual-timing">
+            <span class="d-a" style="color:var(--cedar)">60</span>
+            <span class="d-b" style="color:var(--bark)">/ 90</span>
+            <span class="dl">Day</span>
+          </div>
         </div>
-        <div class="split-grid">
-          <div class="split-card member">
-            <span class="badge">Riversol+ member</span>
-            <h5>Reorder with your credit</h5>
-            <p class="split-note">Use accrued store credit plus standing 10% member pricing. Not a stackable code (codes do not apply to member or subscription orders), so urgency is "your credit is ready."</p>
-            <div class="preview">
-              <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
-              <div class="pv-body">
-                <div class="h">Reorder before you run out</div>
-                <div class="t">You have store credit waiting, plus your 10% member pricing on every order.</div>
-                <span class="pv-cta">Reorder with my credit</span><span class="pv-cta second">Redeem my reward</span>
-              </div>
-            </div>
-          </div>
-          <div class="split-card nonmember">
-            <span class="badge">Non-member</span>
-            <h5>Reorder, and do it for less</h5>
-            <p class="split-note">Reorder now, with a transparent invitation to join Riversol+. State the terms plainly. Membership is framed as opt-in, never as "just a discount."</p>
-            <div class="preview">
-              <div class="pv-bar"><div class="b"></div><div class="b"></div><div class="b"></div><span class="pv-brand">Riversol</span></div>
-              <div class="pv-body">
-                <div class="h">Reorder, and do it for less</div>
-                <div class="t">Join Riversol+ to save on every order. Pause, skip, or cancel anytime.</div>
-                <span class="pv-cta">Reorder my routine</span><span class="pv-cta second">How Riversol+ works</span>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="scard">
+        <div class="tag-row">
+          <span class="tag email">Email 5</span>
+          <span class="tag all">Upsell / Downsell</span>
+          <span class="arm-pill a">Arm A: Day 60</span>
+          <span class="arm-pill b">Arm B: Day 90</span>
+        </div>
+        <h4>Upsell / Downsell — The Offer</h4>
+        <p class="purpose">Separate from Email 4. Do not combine. The offer email — reorder nudge plus the right next step for this customer's lane. See Section 06 for per-lane upsell/downsell ladder.</p>
+
+        <div class="lane-content active" data-lane="dmc">
+          <div class="lane-box"><div class="lb-label">DMC Lane</div><p><b>Primary:</b> Reorder Daily Moisturizing Cream. <b>Secondary:</b> "Ready to take it further?" → Duo Bundle. <b>Tertiary:</b> "The full routine" → Anti-Aging Trio. Walk UP: Single → Duo → Trio.</p></div>
+        </div>
+        <div class="lane-content" data-lane="serum">
+          <div class="lane-box"><div class="lb-label">Serum Lane</div><p><b>Primary:</b> Reorder Anti-Aging Serum. <b>Secondary:</b> "Pair it with the DMC" → Duo Bundle. <b>Tertiary:</b> "Complete the system" → Anti-Aging Trio. Walk UP: Single → Duo → Trio.</p></div>
+        </div>
+        <div class="lane-content" data-lane="trio">
+          <div class="lane-box"><div class="lb-label">Trio Lane</div><p><b>Primary:</b> Reorder Anti-Aging Trio — they're at the top of the range, reorder is the win. <b>Secondary:</b> "Need to restock just one piece?" → Duo or individual product. This is a <b>retention play</b> — sometimes people just need the serum. Walk DOWN: Trio → Duo → Singles.</p></div>
+        </div>
+        <div class="lane-content" data-lane="general">
+          <div class="lane-box"><div class="lb-label">General Lane</div><p><b>Primary:</b> "Here are your most-loved Riversol products" — show top 3 bestsellers: DMC, Serum, Trio. No specific upsell direction. Let them choose their re-entry point.</p></div>
         </div>
       </div>
     </div>
 
     <!-- RUN OUT -->
     <div class="stage">
-      <div class="rail"><div class="node end"><span class="d">~60</span><span class="dl">Out</span></div></div>
+      <div class="rail"><div class="node end"><span class="d">~60–90</span><span class="dl">Goal</span></div></div>
       <div class="scard">
-        <div>
-          <div class="tag-row"><span class="tag all">Goal moment</span></div>
-          <h4>Product runs out</h4>
-          <p class="purpose">By now the reorder has ideally shipped and arrived. Anyone who reordered earlier was quietly dropped from the remaining sends, so no one gets nagged after they have already bought.</p>
+        <div class="tag-row"><span class="tag all">Goal Moment</span></div>
+        <h4>Product runs out — reorder ideally in transit</h4>
+        <p class="purpose">By Day 60 (arm A) or Day 90 (arm B), the product should be empty. The ideal outcome: the reorder has already shipped. Anyone who converted is exited from the flow — no follow-ups after purchase.</p>
+      </div>
+    </div>
+
+  </div><!-- /journey -->
+
+  <!-- ===================== EMAIL 4 DEEP DIVE ===================== -->
+  <div class="sec-head"><span class="num">04</span><h3>Email 4 Deep Dive — The 3-Way Fork</h3></div>
+  <p class="sec-sub">Membership status is the fork variable. Each path gets a tailored message. One hard rule: never upsell Riversol+ to a cancelled or paused member.</p>
+
+  <div class="fork-label">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6"/><path d="M6 21V9"/></svg>
+    Three-way conditional split at Day 57 (arm A) or Day 87 (arm B)
+  </div>
+
+  <div class="three-split-grid">
+
+    <!-- Lane A: Active Member -->
+    <div class="split3-card member">
+      <span class="badge">Lane A — Active Riversol+ Member</span>
+      <h5>Reorder with your credit</h5>
+      <p class="sp-note">They're already in. Don't pitch the program — surface what they have. Make the reorder feel frictionless.</p>
+      <div class="detail"><b>Show:</b> Member status + subscription credit ($15 monthly) + Smile points balance + what they can claim for free.</div>
+      <div class="detail"><b>Tone:</b> "Here's where you stand. Your credit is ready."</div>
+      <div class="detail"><b>Reminder:</b> 10% member discount + free shipping every order.</div>
+      <div class="sp-rule">
+        <span class="rule-label">Smile CTA logic</span>
+        Members → "Log in to redeem." Show dynamic points balance.
+      </div>
+      <div class="cta-row">
+        <span class="cta-btn primary">Reorder with my credit</span>
+        <span class="cta-btn secondary">Redeem my reward</span>
+      </div>
+      <div class="rule-hard">Do NOT repitch Riversol+ — they already have it</div>
+    </div>
+
+    <!-- Lane B: Never Joined -->
+    <div class="split3-card nonmember">
+      <span class="badge">Lane B — Never Joined</span>
+      <h5>Reorder — and discover what you're missing</h5>
+      <p class="sp-note">They have Smile points but haven't unlocked the full membership value. FOMO angle: show the gap between what they have and what they could have.</p>
+      <div class="detail"><b>Show:</b> Smile points balance (dynamic) → "Here's what you could have."</div>
+      <div class="detail"><b>Riversol+ benefits to include:</b> $15 subscription credit monthly, 10% off every order, free shipping, samples with every shipment, only $3 first month.</div>
+      <div class="detail"><b>Tone:</b> Invitation, not pressure. "Always opt-in."</div>
+      <div class="sp-rule">
+        <span class="rule-label">Required compliance language</span>
+        "Pause, skip, or cancel anytime" — must appear in any membership pitch.
+      </div>
+      <div class="sp-rule">
+        <span class="rule-label">Smile CTA logic</span>
+        Non-members → "Sign up to redeem."
+      </div>
+      <div class="cta-row">
+        <span class="cta-btn primary">Reorder my routine</span>
+        <span class="cta-btn secondary">How Riversol+ works</span>
+      </div>
+    </div>
+
+    <!-- Lane C: Cancelled/Paused -->
+    <div class="split3-card cancelled">
+      <span class="badge">Lane C — Cancelled or Paused</span>
+      <h5>Something new is coming</h5>
+      <p class="sp-note">They tried Riversol+. They left (or paused). Pitching membership again is tone-deaf. Instead: re-engage with curiosity. Tease the upcoming product launch.</p>
+      <div class="detail"><b>Hook:</b> Tease Jun 22 product launch — "Something new is coming. As a past Riversol customer, you'll hear about it first."</div>
+      <div class="detail"><b>Soft reorder nudge:</b> "In the meantime, your routine is still here." No pressure.</div>
+      <div class="detail"><b>Tone:</b> Re-engagement. Forward-looking. Warm — not apologetic.</div>
+      <div class="sp-rule">
+        <span class="rule-label">Hard rule</span>
+        No discount. No membership pitch. Curiosity + relationship only.
+      </div>
+      <div class="cta-row">
+        <span class="cta-btn primary">Reorder my routine</span>
+        <span class="cta-btn curious">Tell me about what's coming</span>
+      </div>
+      <div class="rule-hard">NEVER upsell Riversol+ to cancelled or paused members</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== EMAIL 5 DEEP DIVE ===================== -->
+  <div class="sec-head"><span class="num">05</span><h3>Email 5 Deep Dive — Upsell / Downsell Ladder</h3></div>
+  <p class="sec-sub">Email 5 is a separate send — do not combine with Email 4. Per-lane logic determines the offer. Goal is reorder first, range expansion second.</p>
+
+  <div class="ladder-grid">
+
+    <!-- DMC -->
+    <div class="ladder-card dmc">
+      <span class="lc-badge">Lane 1 — Daily Moisturizing Cream</span>
+      <h5>Walk UP the range</h5>
+      <div class="ladder-steps">
+        <div class="ladder-step">
+          <div class="ls-num">1</div>
+          <div class="ls-body">
+            <div class="ls-label">Primary — Reorder Daily Moisturizing Cream</div>
+            <div class="ls-note">The main ask. Dynamic product block. Prioritise over everything else.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">2</div>
+          <div class="ls-body">
+            <div class="ls-label">Secondary — "Ready to take it further?" → Duo Bundle</div>
+            <div class="ls-note">Pair the DMC with the Serum. Framed as the next step, not an add-on.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">3</div>
+          <div class="ls-body">
+            <div class="ls-label">Tertiary — "The full routine" → Anti-Aging Trio</div>
+            <div class="ls-note">Softest placement. "For those who want the complete system."</div>
+          </div>
+        </div>
+      </div>
+      <span class="ladder-direction">↑ Walk UP: Single → Duo → Trio</span>
+    </div>
+
+    <!-- Serum -->
+    <div class="ladder-card serum">
+      <span class="lc-badge">Lane 2 — Anti-Aging Serum</span>
+      <h5>Walk UP the range</h5>
+      <div class="ladder-steps">
+        <div class="ladder-step">
+          <div class="ls-num">1</div>
+          <div class="ls-body">
+            <div class="ls-label">Primary — Reorder Anti-Aging Serum</div>
+            <div class="ls-note">Main ask. Hero block pulls their serum. Dynamic product.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">2</div>
+          <div class="ls-body">
+            <div class="ls-label">Secondary — "Pair it with the DMC" → Duo Bundle</div>
+            <div class="ls-note">The Serum and the DMC work together. Position the pairing as intentional routine-building.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">3</div>
+          <div class="ls-body">
+            <div class="ls-label">Tertiary — "Complete the system" → Anti-Aging Trio</div>
+            <div class="ls-note">Full 3-step system. Lowest placement, softest CTA.</div>
+          </div>
+        </div>
+      </div>
+      <span class="ladder-direction">↑ Walk UP: Single → Duo → Trio</span>
+    </div>
+
+    <!-- Trio -->
+    <div class="ladder-card trio">
+      <span class="lc-badge">Lane 3 — Anti-Aging Trio</span>
+      <h5>Reorder first, flex down if needed</h5>
+      <div class="ladder-steps">
+        <div class="ladder-step">
+          <div class="ls-num">1</div>
+          <div class="ls-body">
+            <div class="ls-label">Primary — Reorder Anti-Aging Trio</div>
+            <div class="ls-note">They're at the top of the range. Reorder IS the win. Lead strong.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">2</div>
+          <div class="ls-body">
+            <div class="ls-label">Secondary — "Need to restock just one?" → Duo or Singles</div>
+            <div class="ls-note">Retention play, not revenue-down. Sometimes they just need the serum. Keep them in the ecosystem.</div>
+          </div>
+        </div>
+      </div>
+      <span class="ladder-direction" style="background:#F2E3D8;color:var(--bark)">↓ Walk DOWN: Trio → Duo → Singles (retention play)</span>
+    </div>
+
+    <!-- General -->
+    <div class="ladder-card general">
+      <span class="lc-badge">Lane 4 — General / Mixed</span>
+      <h5>Surface the range — let them choose</h5>
+      <div class="ladder-steps">
+        <div class="ladder-step">
+          <div class="ls-num">1</div>
+          <div class="ls-body">
+            <div class="ls-label">Daily Moisturizing Cream — bestseller</div>
+            <div class="ls-note">Most purchased. Lead the product block.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">2</div>
+          <div class="ls-body">
+            <div class="ls-label">Anti-Aging Serum — most re-ordered</div>
+            <div class="ls-note">High reorder rate. Natural second slot.</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ls-num">3</div>
+          <div class="ls-body">
+            <div class="ls-label">Anti-Aging Trio — top of range</div>
+            <div class="ls-note">Complete the carousel with the flagship. No specific upsell direction — show and let them choose.</div>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- DATA CALLOUT -->
-  <div class="sec-head"><span class="num">⚑</span><h3>One flag before build</h3></div>
-  <p class="sec-sub">From real segment data — 339 customers in the Replenishment_Test segment.</p>
-  <div class="grid-2" style="margin-bottom:32px">
-    <div class="logic" style="border-left:3px solid var(--bark)">
-      <h4><span class="ic" style="background:#F2E3D8">⚠</span>The Email 4 split needs a third path</h4>
-      <p>The current flow forks members vs. non-members. But <b>23% of this segment are <em>cancelled</em> Riversol+ members</b> — they tried it and left. Sending them the "join Riversol+" pitch will feel tone-deaf. They need a re-engagement angle, not a first-time pitch. Confirm approach before copy is written.</p>
-    </div>
-    <div class="logic">
-      <h4><span class="ic">📊</span>Segment data snapshot</h4>
-      <p><b>58%</b> active Riversol+ members · <b>23%</b> cancelled · <b>13%</b> never joined · <b>6%</b> paused<br><br><b>29%</b> have unused store credit (avg $31) — strong hook for Email 4.<br><b>100%</b> SMS-consented · Median LTV <b>$2,077</b> · Median <b>25 orders</b>.<br><br>Reorder cadence validated: median <b>58 days</b>. Flow timing holds.</p>
-    </div>
-  </div>
-
-  <!-- BUILD LOGIC -->
-  <div class="sec-head"><span class="num">02</span><h3>How it works in Klaviyo</h3></div>
-  <p class="sec-sub">The complexity is deliberately low: one trigger, one split near the end, and automatic exits. Easy to build, easy to QA.</p>
+  <!-- ===================== KLAVIYO BUILD LOGIC ===================== -->
+  <div class="sec-head"><span class="num">06</span><h3>Klaviyo Build Logic</h3></div>
+  <p class="sec-sub">Four product lanes, one split test, three membership branches. Here's how to build it cleanly.</p>
   <div class="grid-2">
     <div class="logic">
-      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 13 9 20 9"/><polyline points="11 22 11 15 4 15"/></svg></span>Trigger</h4>
-      <p>Fires on the <b>Placed Order</b> metric, scoped to the products this flow is meant to replenish.</p>
+      <h4><span class="ic">▶</span>Trigger</h4>
+      <p>Fires on the <b>Placed Order</b> metric. Scope each of the 4 lane flows to the relevant product(s) via trigger filters. Separate flow per lane, or use product-based conditional at entry.</p>
     </div>
     <div class="logic">
-      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Exclusions</h4>
-      <p>Active <b>Auto-Replenish</b> subscribers are filtered out. A re-entry guard stops a customer sitting in two instances at once.</p>
+      <h4><span class="ic">✕</span>Exclusions at Entry</h4>
+      <p>Active <b>Auto-Replenish subscribers</b> excluded — their product ships on its own. Re-entry guard: profile cannot enter if already active in this flow. Suppress by active subscription tag.</p>
     </div>
     <div class="logic">
-      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Auto-exit on reorder</h4>
-      <p>Before each send, a conditional split checks <b>"Placed Order since starting flow."</b> If they bought, they exit. Nobody gets chased after they convert.</p>
+      <h4><span class="ic">⇄</span>60/90 A/B Split</h4>
+      <p>Set a <b>Klaviyo A/B test on the trigger</b> — 50% to arm A (60-day), 50% to arm B (90-day). This is a flow-level split, not an email-level test. Both arms share Emails 1–3. Only the timing of SMS + Emails 4 + 5 differs.</p>
     </div>
     <div class="logic">
-      <h4><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6"/><path d="M6 21V9"/></svg></span>The one split</h4>
-      <p>A single conditional split before Email 4 on <b>Riversol+ member status</b>. Smart Sending on, UTMs on every link, support routed to <b>live chat</b>.</p>
+      <h4><span class="ic">✓</span>Auto-Exit on Reorder</h4>
+      <p>Before <b>every send</b>, a conditional split checks: <b>"Placed Order since flow started."</b> If yes → exit. Nobody gets chased after they convert. This applies to all 5 emails and the SMS.</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic">⇃</span>Email 4 — Membership Fork</h4>
+      <p>Three-way conditional split at Email 4:
+        <br><b>Check 1:</b> Active Riversol+ member → Lane A
+        <br><b>Check 2:</b> Cancelled or paused Riversol+ → Lane C
+        <br><b>Default:</b> Never joined → Lane B
+      </p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic">⚙</span>Universal Settings</h4>
+      <p><b>Smart Sending:</b> On for all emails.<br><b>UTMs:</b> On every link.<br><b>Support CTA:</b> Route to live chat, not reply-to.<br><b>Canadian spelling</b> throughout.<br><b>Claims:</b> Appearance-based only — never "reduces," always "the appearance of."</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic">🇨🇦</span>Made in Canada Flag</h4>
+      <p>Show "Made in Canada" for CA-locale recipients. <b>Suppress for US recipients</b> via Klaviyo conditional content block on recipient country. Note in the Klaviyo template so the build team doesn't miss it.</p>
+    </div>
+    <div class="logic">
+      <h4><span class="ic">🛡</span>Trust Banner</h4>
+      <p>Include the <b>trust banner universal block</b> (saved in Klaviyo as 'trust banner') in Emails 1, 2, 3. Anchors: Dr. Jason Rivers, clinically tested, 60-day money-back, Made in Canada (CA only).</p>
     </div>
   </div>
 
-  <!-- METRICS -->
-  <div class="sec-head"><span class="num">03</span><h3>What we will measure</h3></div>
-  <p class="sec-sub">Primary read is reorder rate and revenue per recipient. One A/B to start: send timing on the final push.</p>
+  <!-- ===================== SEGMENT DATA ===================== -->
+  <div class="sec-head"><span class="num">07</span><h3>Segment Data</h3></div>
+  <p class="sec-sub">339 customers in the Replenishment_Test segment. These numbers shaped the V2 structure.</p>
+
+  <div class="seg-grid">
+    <div class="seg-card highlight">
+      <div class="sg-l">Median reorder cadence</div>
+      <div class="sg-v">58 days</div>
+      <div class="sg-sub">Validates the 60-day trigger anchor. Flow timing holds.</div>
+    </div>
+    <div class="seg-card highlight">
+      <div class="sg-l">Median customer LTV</div>
+      <div class="sg-v">$2,077</div>
+      <div class="sg-sub">High-value segment. Every reorder matters. Every mis-send is visible.</div>
+    </div>
+    <div class="seg-card highlight">
+      <div class="sg-l">Unused store credit</div>
+      <div class="sg-v">29%</div>
+      <div class="sg-sub">Have unused credit. Avg $31 — strong hook for Email 4 member lane.</div>
+    </div>
+    <div class="seg-card">
+      <div class="sg-l">Active Riversol+ members</div>
+      <div class="sg-v">58%</div>
+      <div class="sg-sub">Majority. Email 4 Lane A is the most-seen path.</div>
+    </div>
+    <div class="seg-card">
+      <div class="sg-l">Cancelled Riversol+</div>
+      <div class="sg-v">23%</div>
+      <div class="sg-sub">Why Lane C exists — these are not new prospects. Treat accordingly.</div>
+    </div>
+    <div class="seg-card">
+      <div class="sg-l">Never joined</div>
+      <div class="sg-v">13%</div>
+      <div class="sg-sub">Email 4 Lane B. Best acquisition opportunity in the flow.</div>
+    </div>
+  </div>
+
+  <div class="mem-bar-wrap">
+    <h4>Riversol+ Membership Breakdown — 339 customers</h4>
+    <div class="mem-bar">
+      <div class="seg active-mem"></div>
+      <div class="seg cancelled-mem"></div>
+      <div class="seg paused-mem"></div>
+      <div class="seg never-mem"></div>
+    </div>
+    <div class="mem-legend">
+      <div class="leg"><div class="dot" style="background:var(--cedar)"></div>58% Active member → Email 4 Lane A</div>
+      <div class="leg"><div class="dot" style="background:var(--bark)"></div>23% Cancelled → Email 4 Lane C (no membership pitch)</div>
+      <div class="leg"><div class="dot" style="background:var(--bark-soft)"></div>6% Paused → Email 4 Lane C (no membership pitch)</div>
+      <div class="leg"><div class="dot" style="background:var(--sage-pale);border:1px solid var(--sage)"></div>13% Never joined → Email 4 Lane B (invite, not pressure)</div>
+    </div>
+  </div>
+
+  <!-- ===================== WHAT WE MEASURE ===================== -->
+  <div class="sec-head"><span class="num">08</span><h3>What We Measure</h3></div>
+  <p class="sec-sub">Primary read is reorder rate. Secondary: revenue per recipient and arm winner. Split test read at 90 days post-launch.</p>
   <div class="metrics">
     <div class="metric"><div class="m-l">Reorder rate</div><div class="m-v">Primary</div></div>
-    <div class="metric"><div class="m-l">Time to reorder</div><div class="m-v">Pacing</div></div>
-    <div class="metric"><div class="m-l">Riversol+ conversion</div><div class="m-v">Non-member path</div></div>
     <div class="metric"><div class="m-l">Revenue / recipient</div><div class="m-v">Primary</div></div>
-    <div class="metric"><div class="m-l">Unsub &amp; spam</div><div class="m-v">Guardrail</div></div>
+    <div class="metric"><div class="m-l">60 vs 90 arm winner</div><div class="m-v">Split test</div></div>
+    <div class="metric"><div class="m-l">Riversol+ conversion</div><div class="m-v">Lane B path</div></div>
+    <div class="metric"><div class="m-l">Time to reorder</div><div class="m-v">Pacing</div></div>
+    <div class="metric"><div class="m-l">Unsub &amp; spam rate</div><div class="m-v">Guardrail</div></div>
+    <div class="metric"><div class="m-l">Email 5 upsell attach</div><div class="m-v">Range expansion</div></div>
+    <div class="metric"><div class="m-l">Credit redemption rate</div><div class="m-v">Lane A signal</div></div>
+  </div>
+  <div style="margin-top:16px;font-size:13.5px;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)">
+    <b style="color:var(--ink)">Split test winner logic:</b> If 60-day arm reorder rate ≥ 90-day arm with statistical significance at 90 days — roll the whole flow to 60 days. If 90-day arm wins — keep 90-day timing and update all send delays. If inconclusive after 180 days — extend read window or move to sequential testing per product lane.
   </div>
 
-  <!-- CHECKLIST -->
-  <div class="sec-head"><span class="num">04</span><h3>Sign-off checklist</h3></div>
-  <p class="sec-sub">Five items to confirm in the meeting, then we proceed to copy.</p>
+  <!-- ===================== SIGN-OFF CHECKLIST ===================== -->
+  <div class="sec-head"><span class="num">09</span><h3>Sign-off Checklist</h3></div>
+  <p class="sec-sub">Confirm these before the Klaviyo build starts. Open items → Thomas or Debbie to assign.</p>
   <div class="checklist">
-    <div class="check"><span class="box"></span><span><b>Run-out window</b> confirmed or corrected against real reorder data.</span></div>
-    <div class="check"><span class="box"></span><span><b>Riversol+ price</b> locked (first-month and monthly figure, since the site currently shows it inconsistently).</span></div>
-    <div class="check"><span class="box"></span><span><b>Member offer</b> for Email 4 confirmed (credit plus optional gift-with-reorder).</span></div>
-    <div class="check"><span class="box"></span><span><b>Rewards points rule</b> reconciled: gift redemption, separate CTA, kept clear of discount offers.</span></div>
-    <div class="check"><span class="box"></span><span><b>Auto-Replenish exclusion</b> confirmed with the data team.</span></div>
+    <div class="check"><span class="box"></span><span><b>Product lane scoping confirmed</b> — verify which SKUs/products map to each of the 4 lanes in Klaviyo metrics.</span></div>
+    <div class="check"><span class="box"></span><span><b>60/90 split test approved</b> — Arnaud/Una sign off on the 50/50 timing test approach before flow build begins.</span></div>
+    <div class="check"><span class="box"></span><span><b>Riversol+ price confirmed</b> — first-month price and monthly rate locked. Site currently shows inconsistency. Confirm the live figure for Email 4 Lane B copy.</span></div>
+    <div class="check"><span class="box"></span><span><b>Jun 22 product launch confirmed</b> — Email 4 Lane C teases this. Confirm the date, the product name, and whether "past Riversol customer" is the right qualifier for early access.</span></div>
+    <div class="check"><span class="box"></span><span><b>Smile points dynamic block confirmed</b> — verify Klaviyo has the Smile.io integration active and the points balance variable is accessible for Email 4 personalisation.</span></div>
+    <div class="check"><span class="box"></span><span><b>$15 subscription credit confirmed</b> — verify the monthly credit value and that it appears correctly in Klaviyo profile data for dynamic rendering in Email 4 Lane A.</span></div>
+    <div class="check"><span class="box"></span><span><b>Auto-Replenish exclusion confirmed</b> — confirm the exclusion tag/segment name with the data team before flow activation.</span></div>
+    <div class="check"><span class="box"></span><span><b>SMS CASL consent list confirmed</b> — ensure the SMS-consented segment is current and compliant before Day 54/84 send goes live.</span></div>
+    <div class="check"><span class="box"></span><span><b>Trust banner universal block saved in Klaviyo</b> — confirm block name is 'trust banner' and content is current (Dr. Rivers, 60-day guarantee, Made in Canada).</span></div>
+    <div class="check"><span class="box"></span><span><b>Copy reviewed</b> — Meaghan Reid review complete. All claims appearance-based. "Reduces wrinkles" → "the appearance of fine lines." Canadian spelling throughout.</span></div>
   </div>
 
   <footer>
-    All copy will follow the Riversol brand voice: hedged, appearance-based claims, sensitive-skin reassurance, <b>Dr. Jason Rivers</b> as the authority anchor, Made in Canada, Canadian spelling, and live-chat support rather than reply-to. Membership is always presented as opt-in, with clear pause, skip, and cancel language.
+    <b>DigitsUp advises only.</b> This is a strategy document presented to Arnaud/Una at RMDY Brands for approval before Klaviyo build begins. All copy will follow the Riversol brand voice: hedged, appearance-based claims, sensitive-skin reassurance. <b>Dr. Jason Rivers</b> is the authority anchor in every email. Made in Canada flagged for CA recipients, suppressed for US. Membership always presented as opt-in — pause, skip, or cancel anytime. Cancelled and paused members never receive a Riversol+ pitch.<br><br>
+    <b>Built by DigitsUp.</b> Questions → mike@digitsup.com
   </footer>
 
 </div>
+
+<script>
+  function setLane(lane) {
+    // Update tab styles
+    document.querySelectorAll('.lane-tab').forEach(function(tab) {
+      tab.classList.remove('active');
+    });
+    var tabs = document.querySelectorAll('.lane-tab');
+    var laneMap = { dmc: 0, serum: 1, trio: 2, general: 3 };
+    if (tabs[laneMap[lane]]) tabs[laneMap[lane]].classList.add('active');
+
+    // Update lane cards
+    document.querySelectorAll('.lane-card').forEach(function(card) {
+      card.classList.remove('active');
+    });
+    var cards = document.querySelectorAll('.lane-card');
+    if (cards[laneMap[lane]]) cards[laneMap[lane]].classList.add('active');
+
+    // Show/hide lane content blocks
+    document.querySelectorAll('.lane-content').forEach(function(el) {
+      // Handle inline elements (SMS bubble parts)
+      var laneAttr = el.getAttribute('data-lane');
+      if (laneAttr === lane) {
+        el.classList.add('active');
+        if (el.tagName !== 'DIV') {
+          el.style.display = 'inline';
+        }
+      } else {
+        el.classList.remove('active');
+        if (el.tagName !== 'DIV') {
+          el.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // Init on load
+  document.addEventListener('DOMContentLoaded', function() {
+    setLane('dmc');
+  });
+</script>
 </body>
 </html>
